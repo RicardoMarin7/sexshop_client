@@ -1,0 +1,53 @@
+@import './index.scss';
+@import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Open+Sans:wght@400;700&display=swap');
+
+html{
+    box-sizing: border-box;
+    font-size: 62.5%;
+    width: 100%;
+    height: 100%;
+}
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+h1,h2,h3,h4,h5,a {
+    font-family: 'Amatic SC', cursive;
+    
+}
+
+body{
+    font-size:1.6rem;
+    line-height:2;
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+    background-color: $background-primary;
+}
+
+h1{ font-size: 2.5rem;} h2{ font-size: 2.2rem;} h3{ font-size: 1.9rem;} h4{ font-size: 1.6rem;}
+
+
+ul{
+    list-style:none;
+    margin:0;
+    padding:0;
+}
+
+.container{
+    max-width: 136.8rem;
+    margin: 0 auto;
+    width: 95%;
+}
+
+@media(max-width:468px){
+    .container{
+        max-width: 114rem;
+        margin: 0 auto;
+        width: 85%;
+    }
+}
+
+img {
+    max-width:100%;
+}
+
