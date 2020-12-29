@@ -1,12 +1,24 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { Input, Button, Icon } from 'semantic-ui-react'
+import { Input, Button, Icon, Dropdown } from 'semantic-ui-react'
+import useAuth from '../../hooks/useAuth'
+import { getMeAPI } from '../../api/user'
 
 
 
 const  Header = ({href}) => {
+    const { logout, auth} = useAuth()
 
     const [ menuActive, isMenuActive ] = useState(false)
+    const [ user, setUser ] = useState(undefined)
+
+    useEffect(() => {
+        (async () =>{
+            const response = await getMeAPI(logout)
+            setUser(response)
+        }
+        )()
+    }, [auth]);
 
     return (
         <>
@@ -17,7 +29,7 @@ const  Header = ({href}) => {
 
             <div className="TopBar__Nav">
                 <Message />
-                <Login />
+                { auth ? <DropDown logout={logout} name={user?.name} /> : <Login />}
             </div>
         </div>
         <header className="Header__primary">
@@ -110,6 +122,29 @@ const Message = () =>(
 const Login = () =>(
     <Button icon>
         <Icon name="lock" />
-        Iniciar Sesión
+        <Link href="/login">
+            <a>Log In</a>
+        </Link>
     </Button>
 )
+
+const DropDown = ({logout, name}) =>{
+
+    return(
+        <Dropdown 
+            className="Header__dropdown" 
+            trigger={
+                <span>
+                    <Icon name='user' /> {`Hi,${name}`}
+                </span>
+            }
+        >
+            <Dropdown.Menu>
+                <Dropdown.Item
+                    text="Cerrar sesión"
+                    onClick={logout}
+                />
+            </Dropdown.Menu>
+        </Dropdown>
+    )
+}

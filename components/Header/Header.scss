@@ -21,7 +21,10 @@
             border-radius: .5rem;
             height: 4rem;
             color: $font-secondary-lighter;
-            font-size: 1.2rem;
+            font-size: 1.2rem;            
+            a{
+                color: $font-secondary-lighter;
+            }
         }
     }
     
