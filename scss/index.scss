@@ -1,18 +1,21 @@
-//Colors
+/**************************** Colors ****************************/
 @import './colors.scss';
 
-//Layouts
+/**************************** Layouts ****************************/
 @import '../layouts/BasicLayout/BasicLayout.scss';
 
-//Components
+/**************************** Components ****************************/
 @import '../components/Header/Header.scss';
 
-//Register Form
+    //Register Form
 @import '../components/Auth/Register/register.scss';
 
-//Login Form
+    //Login Form
 @import '../components/Auth/Login/login.scss';
 
-//Reset Password Form
+    //Reset Password Form
 @import '../components/Auth/ResetPassword/ResetPassword.scss';
+
+    //Account Page
+@import '../components/Account/account.scss';
 
