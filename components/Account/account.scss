@@ -10,8 +10,16 @@
         border: 1px solid $font-secondary;
         border-radius:4px;
         box-shadow:0px 4px 5px rgba(0, 0, 0, 0.75);
+        max-height: 35rem;
+
+        .ui.basic.button{
+            width: 100%;
+            display: block;
+            box-shadow: none;
+        }
 
         &__link{
+            background-color: transparent;
             display: block;
             font-size:2.5rem;
             font-weight:300;

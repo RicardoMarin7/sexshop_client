@@ -25,7 +25,10 @@ const Account = () => {
 
     return ( 
         <BasicLayout>
-            <AccountComponent />
+            <AccountComponent 
+                user={user}
+                logout={logout}
+            />
         </BasicLayout>
     );
 }

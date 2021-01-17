@@ -4,13 +4,12 @@ import { Input, Button, Icon, Dropdown } from 'semantic-ui-react'
 import useAuth from '../../hooks/useAuth'
 import { getMeAPI } from '../../api/user'
 
-
-
 const  Header = ({href}) => {
     const { logout, auth} = useAuth()
 
     const [ menuActive, isMenuActive ] = useState(false)
     const [ user, setUser ] = useState(undefined)
+
 
     useEffect(() => {
         (async () =>{
@@ -29,7 +28,7 @@ const  Header = ({href}) => {
 
             <div className="TopBar__Nav">
                 <Message />
-                { auth ? <DropDown logout={logout} name={user?.name} /> : <Login />}
+                { auth ? <DropDown logout={logout} name={user?.name} Link={Link} /> : <Login />}
             </div>
         </div>
         <header className="Header__primary">
@@ -128,7 +127,7 @@ const Login = () =>(
     </Button>
 )
 
-const DropDown = ({logout, name}) =>{
+const DropDown = ({logout, name, Link}) =>{
 
     return(
         <Dropdown 
@@ -140,10 +139,16 @@ const DropDown = ({logout, name}) =>{
             }
         >
             <Dropdown.Menu>
-                <Dropdown.Item
-                    text="Cerrar sesión"
-                    onClick={logout}
-                />
+                <Dropdown.Item>
+                    <Link href="/account">
+                        <a>Account</a>
+                    </Link>
+                </Dropdown.Item>
+
+            <Dropdown.Item
+                text="Cerrar sesión"
+                onClick={logout}
+            />
             </Dropdown.Menu>
         </Dropdown>
     )

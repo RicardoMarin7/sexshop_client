@@ -20,10 +20,10 @@ const Login = () => {
             onSubmit: async (formData) => {
                 setLoading(true)
                 const response = await loginAPI(formData)      
-                console.log(response)          
                 if(response?.jwt){
                     login(response.jwt)
                     toast.success('Inicio de sesión éxitoso')
+                    router.push('/')
                 }else{
                     toast.error('El email o la contraseña es incorrecto')
                 }
