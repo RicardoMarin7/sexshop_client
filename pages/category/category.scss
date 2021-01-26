@@ -1,0 +1,34 @@
+.Category{
+    display: flex;
+    flex-direction: column;
+    color: $font-secondary;
+    overflow: hidden;
+
+    @media(max-width:768px){
+        &__poster{
+            display: none;
+        }
+    }
+
+    &__poster{
+        height: 300px;
+        width: 100%;
+        overflow: hidden;
+        text-align: center;
+        
+        img{
+            min-width: 90%;
+            height: auto;
+        }
+    }
+
+    &__content{
+        display: grid;
+        grid-template-columns: 20% 80%;
+        margin-top: 1rem;
+        @media(max-width:768px){
+            display: flex;
+            flex-direction: column;
+        }
+    }
+}

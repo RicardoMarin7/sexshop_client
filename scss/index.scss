@@ -4,6 +4,10 @@
 /**************************** Layouts ****************************/
 @import '../layouts/BasicLayout/BasicLayout.scss';
 
+/**************************** Pages ****************************/
+@import '../pages/index.scss';
+@import '../pages/category/category.scss';
+
 /**************************** Components ****************************/
 @import '../components/Header/Header.scss';
 
@@ -27,3 +31,12 @@
 
     //Addresses List
 @import '../components/Account/AddressList/addresslist.scss';
+
+    //MyCarousel
+@import '../components/MyCarousel/MyCarousel.scss';
+
+    //Pagination
+@import '../components/Pagination/pagination.scss';
+
+    //
+@import '../components/Product/product.scss';

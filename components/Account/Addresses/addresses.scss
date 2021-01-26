@@ -25,4 +25,10 @@
                 color:$font-secondary-lighter;
             }
         }
+    
+    &__list{
+        h2{
+            text-align: center;
+        }
+    }
 }

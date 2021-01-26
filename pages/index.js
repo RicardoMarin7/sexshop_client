@@ -1,15 +1,37 @@
-import Head from 'next/head'
-import { Button } from 'semantic-ui-react'
-
+import React, { useState, useEffect } from 'react'
 import BasicLayout from '../layouts/BasicLayout'
+import { getLastProductsApi } from '../api/product'
+import { size, map } from 'lodash'
+import MyCarousel from '../components/MyCarousel'
 
 export default function Home() {
+
+  const [products, setProducts] = useState([])
+
+  useEffect(() => {
+    (async () => {
+      const response = await getLastProductsApi(10);
+      if( size(response) > 0 ) setProducts(response)
+      else setProducts([])
+    })()
+  }, []);
+
   return (
-    <BasicLayout> 
-      <p> We are on sex shop construction</p>
-      <Button>
-        Soy un boton
-      </Button>
+    <BasicLayout>
+      <MyCarousel 
+        title='Latest Products'
+        items={products}
+        key={1}
+      />
+
+      <MyCarousel 
+        title='Carrusel de prueba'
+        items={products}
+        key={2}
+      />
     </BasicLayout>
   )
-}
+
+};
+ 
+

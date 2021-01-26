@@ -3,10 +3,13 @@ import Link from 'next/link'
 import { Input, Button, Icon, Dropdown } from 'semantic-ui-react'
 import useAuth from '../../hooks/useAuth'
 import { getMeAPI } from '../../api/user'
+import { getCategoriesApi } from '../../api/categories'
+import { map } from 'lodash'
 
 const  Header = ({href}) => {
     const { logout, auth} = useAuth()
-
+    
+    const [ categories, setCategories] = useState([])
     const [ menuActive, isMenuActive ] = useState(false)
     const [ user, setUser ] = useState(undefined)
 
@@ -18,6 +21,13 @@ const  Header = ({href}) => {
         }
         )()
     }, [auth]);
+
+    useEffect(() => {
+        (async () =>{
+            const response = await getCategoriesApi()
+            setCategories(response || [])
+        })()
+    }, []);
 
     return (
         <>
@@ -44,22 +54,16 @@ const  Header = ({href}) => {
                                 className='Header__link'>
                             Home</a>
                         </Link>
-                        
-                        <Link href="!#">
-                            <a className="Header__link">Lingerie</a>
-                        </Link>
-                        
-                        <Link href="!#">
-                            <a className="Header__link">Accesories</a>
-                        </Link>
 
-                        <Link href="!#">
-                            <a className="Header__link">Massage</a>
-                        </Link>
-
-                        <Link href="!#">
-                            <a className="Header__link">A Propos</a>
-                        </Link>
+                        {map(categories, (category) =>(
+                            <Link href={`/category/${category.slug}`} key={category._id}>
+                                <a 
+                                    className='Header__link'
+                                >
+                                    {category.title}
+                                </a>
+                            </Link>
+                        ))}
                     </div>
                     
                     
@@ -128,13 +132,14 @@ const Login = () =>(
 )
 
 const DropDown = ({logout, name, Link}) =>{
-
+    let user = ''
+    if(name) user = name
     return(
         <Dropdown 
             className="Header__dropdown" 
             trigger={
                 <span>
-                    <Icon name='user' /> {`Hi,${name}`}
+                    <Icon name='user' /> {`Hi,${user}`}
                 </span>
             }
         >

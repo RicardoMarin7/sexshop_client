@@ -1,0 +1,15 @@
+.Pagination{
+    margin-top: 1.5rem;
+    a{
+        font-family: 'Open Sans', sans-serif;
+    }
+
+    .ui.pagination.menu{
+        .active.item{
+            background-color: $font-secondary-lighter;
+        }       
+        margin: 0 auto;
+    }
+
+    display: flex;
+}

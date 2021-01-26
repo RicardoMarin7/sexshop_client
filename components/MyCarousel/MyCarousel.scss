@@ -1,0 +1,51 @@
+.Carousel{
+    &__title{
+      text-align: center;
+    }
+  
+    .react-multi-carousel-list.carousel-container{
+      position: initial;
+      .react-multiple-carousel__arrow--left{
+        left: calc(10% + 1px);
+      }
+      .react-multiple-carousel__arrow--right{
+        right: calc(10% + 1px);
+      }
+    }
+  
+    .react-multi-carousel-dot-list{
+        position: relative;
+      }
+  
+    a{
+      color: $font-secondary;
+    }
+  
+    .react-multi-carousel-item{
+      
+      .Carousel__product{
+        img{
+          box-shadow: 0px 0px 2px 2px $font-secondary-transparent;
+          padding: 1rem;
+          background-color: rgba(238, 238, 238, 0.753);
+        }
+        margin: 1rem;
+
+        h2{
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          margin-bottom: 1.5rem;
+          font-size: 2.4rem;
+        }
+
+        p{
+          border-top: 1px solid $font-secondary-transparent;
+          font-size: 1.8rem;
+          font-weight: 700;
+          color: $font;
+        }
+      }
+    }
+  
+  }
