@@ -12,12 +12,11 @@ export const getCategoriesApi = async () =>{
     }
 }
 
-export const getCategoryApi = async(categoryID) =>{
+export const getCategoryApi = async(slug) =>{
     try {
-        const url = `${BASE_PATH}/categories?slug=${categoryID}`
+        const url = `${BASE_PATH}/categories?slug=${slug}`
         const response = await fetch(url)
         const result = await response.json()
-        console.log(result)
         return result
     } catch (error) {
         console.log(error)

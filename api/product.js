@@ -38,3 +38,16 @@ export const getTotalProductsCategory = async (category) =>{
         return null
     }
 }
+
+export const getProductBySlug = async (slug) =>{
+    try {
+        const url = `${BASE_PATH}/products?slug=${slug}`
+        const response = await fetch(url)
+        const result = await response.json()
+        return result[0]
+
+    } catch (error) {
+        console.log(error)
+        return null
+    }
+}

@@ -7,6 +7,7 @@
 /**************************** Pages ****************************/
 @import '../pages/index.scss';
 @import '../pages/category/category.scss';
+@import '../pages/products/product.scss';
 
 /**************************** Components ****************************/
 @import '../components/Header/Header.scss';
@@ -38,5 +39,11 @@
     //Pagination
 @import '../components/Pagination/pagination.scss';
 
-    //
-@import '../components/Product/product.scss';
+    //ListProduct
+@import '../components/ListProduct/ListProduct.scss';
+
+    //Product/ProductHeader
+@import '../components/Product/ProductHeader/ProductHeader.scss';
+
+    //Product/ProductCarousel
+@import '../components/Product/ProductCarousel/ProductCarousel.scss';

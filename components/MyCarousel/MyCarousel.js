@@ -2,7 +2,7 @@ import Carousel from 'react-multi-carousel'
 import "react-multi-carousel/lib/styles.css";
 import Link from 'next/link'
 import { size, map } from 'lodash'
-import Product from '../Product'
+import Product from '../ListProduct'
 
 const MyCarousel = ({items, title}) => {
     const responsive = {
@@ -53,5 +53,5 @@ const MyCarousel = ({items, title}) => {
       </div>
     );
 }
- 
+
 export default MyCarousel;

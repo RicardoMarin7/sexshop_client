@@ -25,6 +25,7 @@ const  Header = ({href}) => {
     useEffect(() => {
         (async () =>{
             const response = await getCategoriesApi()
+            console.log(response)
             setCategories(response || [])
         })()
     }, []);

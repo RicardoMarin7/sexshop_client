@@ -2,12 +2,12 @@ import Link from 'next/link'
 import Image from 'next/image'
 
 const Product = ({product}) => {
-    return (
+        return (
         <div className="product">
-            <Link href={`products/${product.slug}`}>
+            <Link href={`/products/${product.slug}`}>
                 <a>
                 {/* <Image src={product.poster.url} layout='responsive' height={product.poster.height} width={product.poster.width}/> */}
-                <img src={product.poster.url} alt={product.title} />
+                <img src={product?.poster.url} alt={product.title} />
                 <h2>{product.title}</h2>
                 </a>
             </Link>
@@ -15,5 +15,4 @@ const Product = ({product}) => {
         </div>
     );
 }
- 
 export default Product;

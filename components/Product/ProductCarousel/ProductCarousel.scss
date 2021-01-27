@@ -1,0 +1,12 @@
+.slick-dots.slick-thumb{
+    height: 5rem;
+    bottom: -6rem;
+    li{
+        filter: grayscale(.8);
+        width: 10%;
+    }
+
+    .slick-active{
+        filter:grayscale(0)
+    }
+}

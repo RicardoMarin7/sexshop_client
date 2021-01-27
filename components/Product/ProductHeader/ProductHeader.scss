@@ -1,0 +1,107 @@
+.ProductHeader{
+    color:$font-secondary-light;
+    margin-top: 2rem!important ;
+    
+    @media(max-width:768px){
+        .sixteen.wide.mobile:last-of-type{
+            margin-top: 2.5rem;
+        }
+
+        &__title{
+            font-size: 3rem;
+        }
+
+        &__description{
+            font-size: 1.6rem;
+        }
+    }
+    &__title{
+        font-size: 3.6rem;
+        font-weight: 300;
+    }
+
+    &__description{
+        border-bottom: 1px solid rgba(0,0,0,.1);
+        padding-bottom: 2rem;
+    }
+
+    &__price{
+        p{
+            color:$font;
+            font-weight: 700;
+            font-size: 3.6rem;
+            font-family: 'Amatic SC', cursive;
+
+            span{
+                font-weight: 300;
+                font-family: 'Open Sans', sans-serif;
+                color:$font-secondary-light;
+                font-size: 1.6rem;
+            }
+        }
+    }
+
+    &__actions{
+        display: flex;
+
+        input{
+            color: #555;
+            background-color: #fff;
+            height: 100%;
+            padding: .28rem .8rem;
+            height: auto;
+            width: 4.63rem;
+            border: 1px solid rgba(0,0,0,.15);
+
+            &:focus{
+                box-shadow: 0 0 5px $font;
+                outline: none;
+            }
+        }
+
+        .favorite{
+            font-size: 2rem;
+            padding: 0;
+            background-color: transparent;
+
+            &:hover{
+                background: none;
+                color: $font;
+            }
+        }
+
+        &__verticalArrows{
+            display: flex;
+            flex-direction: column;
+            button{
+                background-color: white!important;
+                height: 2rem;
+
+                &:focus{
+                    box-shadow: 0 0 5px $font;
+                }
+            }
+        }
+
+        
+
+        .ui.button.left.labeled{
+            margin-left: 1rem;
+            font-size: initial;
+            background-color: $font;
+            color: $font-secondary-lighter;
+            font-weight: 300;
+        }
+    }
+
+    .row{
+        margin-bottom: 1.5rem;
+        padding:1rem;
+    }
+
+    .row:first-of-type{
+        padding:0;
+    }
+
+    
+}

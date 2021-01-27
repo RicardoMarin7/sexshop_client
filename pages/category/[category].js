@@ -6,7 +6,7 @@ import { getCategoryApi } from '../../api/categories'
 import { size, map } from 'lodash'
 import { Loader, Grid} from 'semantic-ui-react'
 import Pagination from '../../components/Pagination'
-import Product from '../../components/Product'
+import ListProduct from '../../components/ListProduct'
 
 const Category = () => {
     const {query} = useRouter()
@@ -70,7 +70,7 @@ const Category = () => {
                             {size(products) > 0 && (
                                 map(products, (product)=>(
                                     <Grid.Column mobile={16} tablet={8} computer={4} key={product._id}>
-                                        <Product product={product} />
+                                        <ListProduct product={product} />
                                     </Grid.Column>
                                 ))
                             )}
