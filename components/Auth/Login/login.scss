@@ -17,8 +17,8 @@
 
 
     &__form{        
-        background-color: $background_secondary;
-        border: 1px solid $font-secondary;
+        background-color: $font;
+        border: 1px solid $font-secondary-lighter;
         border-radius: 1rem;
         padding: 2rem 1rem;
         width: 100%;
@@ -43,23 +43,23 @@
 
         .field{
             label{
-                color:$font!important;                
+                color:$font-secondary-lighter!important;                
                 
             }
             .ui.input{
                 
                 input{
-                    border: 1px solid $font-secondary-lighter;
+                    border: 1px solid $font;
                     border-radius: .5rem;
                     background-color: $background_secondary;
                     height:4rem;
-                    color:$font-secondary-lighter;
+                    color:$font;
                     font-size: 1.6rem;
                     margin: .5rem 1rem;
                     
     
                     &::placeholder {
-                        color: $header-background
+                        color: $font
                     }
     
                     &[type="text"],

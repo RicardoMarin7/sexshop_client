@@ -1,0 +1,11 @@
+.Wishlist{
+    &__title{
+        font-size: 3.7rem;
+        color: $font-secondary;
+        text-align: center;
+    }
+
+    &__products{
+        padding: 2rem;
+    }
+}

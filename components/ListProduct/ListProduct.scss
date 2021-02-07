@@ -27,10 +27,42 @@
     
 
     p{
-        border-top: 1px solid $font-secondary-transparent;
         font-size: 1.8rem;
         font-weight: 700;
         color: $font;
+        margin: 0;
     }
+
+    &__LowBar{
+        border-top: 1px solid $font-secondary-transparent;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .actions{
+            .button{
+                font-size: 1.8rem;
+                padding: 0!important;
+                color: $font;
+                background-color: transparent;
+                margin-left: 1rem;
+                transition: all 0.3s ease-in;
+
+                &:hover{
+                    background-color: transparent;
+                    transition: all 0.3s ease-out;
+                    transform: scale(1.1);
+                    color: $font;
+                }
+    
+                &:focus{
+                    background-color: transparent;
+                    color: $font;
+                }
+        
+            }
+        }
+    }
+
 
 }

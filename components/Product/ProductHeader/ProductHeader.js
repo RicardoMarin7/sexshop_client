@@ -1,16 +1,52 @@
-import { set } from 'lodash';
-import React, { useState } from 'react'
-import { Grid, Image, Icon, Button } from 'semantic-ui-react'
+import React, { useState, useEffect } from 'react'
+import { Grid, Icon, Button } from 'semantic-ui-react'
 import ProductCarousel from '../ProductCarousel'
+import { isFavoriteApi, addFavoriteApi, removeFavoriteApi } from '../../../api/favorite'
+import useAuth from '../../../hooks/useAuth'
+import { size } from 'lodash'
+import { useRouter } from 'next/router'
 
 const ProductHeader = ({product}) => {
+    const { auth , logout} = useAuth()
     const [quantity, setQuantity] = useState(1);
+    const [isFavorite, setIsFavorite ] = useState(false)
+    const [reloadFavorite, setReloadFavorite] = useState(false)
+    const router  = useRouter()
 
     const onQuantityChange = e =>{
-        if(isNaN(e.target.value) && e.target.value > 0) setQuantity(quantity)
-        else if(quantity < 1) setQuantity(1)
-        else setQuantity(e.target.value)
+        setQuantity(e.target.value)
     }
+
+    const addFavorite = async () =>{
+        if(auth){
+            setReloadFavorite(true)
+            await addFavoriteApi(auth.idUser, product.id, logout)
+        }
+        else{
+            router.push('/login')
+        }
+    }
+    
+    const removeFavorite = async () =>{
+        if(auth){
+            setReloadFavorite(true)
+            await removeFavoriteApi(auth.idUser, product.id, logout)
+        }
+        else{
+            router.push('/login')
+        }
+    }
+
+    useEffect(() => {
+        if(auth){
+            (async () => {
+                const response = await isFavoriteApi(auth.idUser, product.id, logout)
+                if(size(response) > 0) setIsFavorite(true)
+                else setIsFavorite(false)
+            })()
+        }
+        setReloadFavorite(false)
+    }, [product, reloadFavorite]);
 
     return ( 
         <Grid centered className="ProductHeader">
@@ -33,7 +69,7 @@ const ProductHeader = ({product}) => {
                 </Grid.Row>
                 <Grid.Row>
                     <div className="ProductHeader__actions">
-                        <input type="text" value={quantity} name="quantity" id="quantity" className="quantity" onChange={onQuantityChange}/>
+                        <input type="number" value={quantity} name="quantity" id="quantity" className="quantity" onChange={onQuantityChange}/>
                         <div className="ProductHeader__actions__verticalArrows">
                             <Button icon onClick={() => setQuantity(quantity+1)}>
                                 <Icon name='arrow up' />
@@ -46,8 +82,8 @@ const ProductHeader = ({product}) => {
                             <Icon name='shopping cart' />
                             Add to Cart
                         </Button>
-                        <Button icon className="favorite" type="button">
-                            <Icon name='heart outline' />
+                        <Button icon className="favorite" type="button" onClick={isFavorite ? removeFavorite : addFavorite} loading={reloadFavorite}>
+                            <Icon name={isFavorite ? 'heart' : 'heart outline' } />
                         </Button>
                     </div>
                 </Grid.Row>

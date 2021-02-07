@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import BasicLayout from '../../layouts/BasicLayout'
 import { useRouter } from 'next/router'
-import { getProductBySlug } from '../../api/product'
+import { getProductBySlug, getRelatedProducts } from '../../api/product'
 import ProductHeader from '../../components/Product/ProductHeader'
 import marked from 'marked'
 
 const Product = () => {
     const {query} = useRouter()
-    const [product, setProduct] = useState();
+    const [product, setProduct] = useState(null);
   
 
     const getAdditionalInfo = () =>{
@@ -19,7 +19,18 @@ const Product = () => {
         (async () =>{
             const response = await getProductBySlug(query.product)
             setProduct(response)
+            // console.log(response)
         })()
+    }, [query]);
+
+    useEffect(() => {
+        if(product){
+            (async () =>{
+                const response = await getRelatedProducts(product.category.slug, 5)
+                // setProduct(response)
+                console.log(response)
+            })()
+        }
     }, [query]);
 
     return (

@@ -1,5 +1,5 @@
 .ProductHeader{
-    color:$font-secondary-light;
+    color:$font-secondary;
     margin-top: 2rem!important ;
     
     @media(max-width:768px){
@@ -35,7 +35,7 @@
             span{
                 font-weight: 300;
                 font-family: 'Open Sans', sans-serif;
-                color:$font-secondary-light;
+                color:$font-secondary;
                 font-size: 1.6rem;
             }
         }
@@ -61,21 +61,39 @@
 
         .favorite{
             font-size: 2rem;
-            padding: 0;
+            padding: 0!important;
+            color: $font;
             background-color: transparent;
+            margin-left: 1rem;
+            transition: all 0.3s ease-in;
 
             &:hover{
-                background: none;
+                background-color: transparent;
+                transition: all 0.3s ease-out;
+                transform: scale(1.2);
                 color: $font;
             }
+
+            &:focus{
+                background-color: transparent;
+                color: $font;
+            }
+    
+        }
+
+        .quantity::-webkit-outer-spin-button, .quantity::-webkit-inner-spin-button{
+            appearance: none;
+            margin:0;
         }
 
         &__verticalArrows{
             display: flex;
             flex-direction: column;
+            justify-content: center;
+            height: auto;
             button{
                 background-color: white!important;
-                height: 2rem;
+                height: auto;
 
                 &:focus{
                     box-shadow: 0 0 5px $font;

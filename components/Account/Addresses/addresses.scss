@@ -16,6 +16,10 @@
                         border-color: $background-secondary;
                     }
 
+                    &::placeholder{
+                        color: $font-secondary;
+                    }
+
                 }
             }
 

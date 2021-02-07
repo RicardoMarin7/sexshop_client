@@ -1,10 +1,11 @@
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { Input, Button, Icon, Dropdown } from 'semantic-ui-react'
 import useAuth from '../../hooks/useAuth'
 import { getMeAPI } from '../../api/user'
 import { getCategoriesApi } from '../../api/categories'
 import { map } from 'lodash'
+import { useRouter } from 'next/router'
 
 const  Header = ({href}) => {
     const { logout, auth} = useAuth()
@@ -12,7 +13,6 @@ const  Header = ({href}) => {
     const [ categories, setCategories] = useState([])
     const [ menuActive, isMenuActive ] = useState(false)
     const [ user, setUser ] = useState(undefined)
-
 
     useEffect(() => {
         (async () =>{
@@ -25,7 +25,6 @@ const  Header = ({href}) => {
     useEffect(() => {
         (async () =>{
             const response = await getCategoriesApi()
-            console.log(response)
             setCategories(response || [])
         })()
     }, []);
@@ -39,7 +38,7 @@ const  Header = ({href}) => {
 
             <div className="TopBar__Nav">
                 <Message />
-                { auth ? <DropDown logout={logout} name={user?.name} Link={Link} /> : <Login />}
+                { auth ? <DropDown logout={logout} name={user?.name} Link={Link} /> : <Login router={router} />}
             </div>
         </div>
         <header className="Header__primary">
@@ -94,12 +93,26 @@ const  Header = ({href}) => {
 export default  Header;
 
 const Search = () =>{
+    const [query, setQuery ] = useState('')
+    const [load, setLoad] = useState(false);
+    const router = useRouter()
+
+    useEffect(() => {
+        if(load){
+            router.push(`/search?query=${query}`)
+        }
+        setLoad(true)
+    }, [query]);
+
+    
     return(
         <Input
             id='search'
             icon={{
                 name:'search'
             }}
+            value={router.query.query}
+            onChange={(_,data) => setQuery(data.value)}
         />
     )
 }
@@ -124,12 +137,14 @@ const Message = () =>(
 )
 
 const Login = () =>(
-    <Button icon>
-        <Icon name="lock" />
-        <Link href="/login">
-            <a>Log In</a>
-        </Link>
-    </Button>
+    <Link href="/login">
+        <a>
+        <Button icon>
+            <Icon name="lock" />
+            Log In
+        </Button>
+        </a>
+    </Link>
 )
 
 const DropDown = ({logout, name, Link}) =>{
@@ -150,11 +165,17 @@ const DropDown = ({logout, name, Link}) =>{
                         <a>Account</a>
                     </Link>
                 </Dropdown.Item>
+                
+                <Dropdown.Item>
+                    <Link href="/wishlist">
+                        <a>Wishlist</a>
+                    </Link>
+                </Dropdown.Item>
 
-            <Dropdown.Item
-                text="Cerrar sesión"
-                onClick={logout}
-            />
+                <Dropdown.Item
+                    text="Cerrar sesión"
+                    onClick={logout}
+                />
             </Dropdown.Menu>
         </Dropdown>
     )
