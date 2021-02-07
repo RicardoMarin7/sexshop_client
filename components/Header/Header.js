@@ -13,6 +13,7 @@ const  Header = ({href}) => {
     const [ categories, setCategories] = useState([])
     const [ menuActive, isMenuActive ] = useState(false)
     const [ user, setUser ] = useState(undefined)
+    const router = useRouter()
 
     useEffect(() => {
         (async () =>{
@@ -69,7 +70,7 @@ const  Header = ({href}) => {
                     
 
                     <div className="Header__icons">
-                    <Search />
+                    <Search router={router} />
 
                     <Cart />
 
@@ -92,10 +93,11 @@ const  Header = ({href}) => {
 }
 export default  Header;
 
-const Search = () =>{
+const Search = ({router}) =>{
+
     const [query, setQuery ] = useState('')
     const [load, setLoad] = useState(false);
-    const router = useRouter()
+    
 
     useEffect(() => {
         if(load){
