@@ -45,12 +45,14 @@ const Login = () => {
                     name="identifier"
                     type="text"
                     placeholder="Email"
+                    autoComplete="email"
                     onChange={formik.handleChange}
                     error={formik.errors.identifier}
                 />
 
                 <Form.Input 
                     name="password"
+                    autoComplete="current-password"
                     type="password"
                     placeholder="Contraseña"
                     onChange={formik.handleChange}

@@ -29,4 +29,10 @@
         background-color: $font-secondary;
         color: $font-secondary-lighter;
     }
+
+    &.active{
+        box-shadow: 0 0 5px $highlight;
+        border: 1px solid $highlight;
+        background-color: $background-secondary;
+    }
 }

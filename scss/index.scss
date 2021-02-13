@@ -10,6 +10,7 @@
 @import '../pages/products/product.scss';
 @import '../pages/wishlist.scss';
 @import '../pages/search.scss';
+@import '../pages/cart.scss';
 
 /**************************** Components ****************************/
 @import '../components/Header/Header.scss';
@@ -49,3 +50,12 @@
 
     //Product/ProductCarousel
 @import '../components/Product/ProductCarousel/ProductCarousel.scss';
+
+    //Cart/Fullcart
+@import '../components/Cart/FullCart/fullcart.scss';
+
+    //Cart/Fullcart
+@import '../components/Cart/AddressShiping/AddressShiping.scss';
+
+@import '../components/EmptyPage/EmptyPage.scss';
+

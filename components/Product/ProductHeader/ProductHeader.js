@@ -5,6 +5,7 @@ import { isFavoriteApi, addFavoriteApi, removeFavoriteApi } from '../../../api/f
 import useAuth from '../../../hooks/useAuth'
 import { size } from 'lodash'
 import { useRouter } from 'next/router'
+import useCart from '../../../hooks/useCart'
 
 const ProductHeader = ({product}) => {
     const { auth , logout} = useAuth()
@@ -12,6 +13,7 @@ const ProductHeader = ({product}) => {
     const [isFavorite, setIsFavorite ] = useState(false)
     const [reloadFavorite, setReloadFavorite] = useState(false)
     const router  = useRouter()
+    const { addProductCart } = useCart()
 
     const onQuantityChange = e =>{
         setQuantity(e.target.value)
@@ -69,7 +71,7 @@ const ProductHeader = ({product}) => {
                 </Grid.Row>
                 <Grid.Row>
                     <div className="ProductHeader__actions">
-                        <input type="number" value={quantity} name="quantity" id="quantity" className="quantity" onChange={onQuantityChange}/>
+                        <input type="number" value={quantity} name="quantity" id="quantity" className="quantity" onChange={onQuantityChange} required/>
                         <div className="ProductHeader__actions__verticalArrows">
                             <Button icon onClick={() => setQuantity(quantity+1)}>
                                 <Icon name='arrow up' />
@@ -78,7 +80,7 @@ const ProductHeader = ({product}) => {
                                 <Icon name='arrow down' />
                             </Button>
                         </div>
-                        <Button icon labelPosition='left'>
+                        <Button icon labelPosition='left' onClick={ () => addProductCart(product.slug , quantity)} type='submit'>
                             <Icon name='shopping cart' />
                             Add to Cart
                         </Button>

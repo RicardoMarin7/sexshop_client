@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { Input, Button, Icon, Dropdown } from 'semantic-ui-react'
+import { Input, Button, Icon, Dropdown, Label } from 'semantic-ui-react'
 import useAuth from '../../hooks/useAuth'
 import { getMeAPI } from '../../api/user'
 import { getCategoriesApi } from '../../api/categories'
 import { map } from 'lodash'
 import { useRouter } from 'next/router'
+import useCart from '../../hooks/useCart'
 
 const  Header = ({href}) => {
     const { logout, auth} = useAuth()
@@ -66,13 +67,11 @@ const  Header = ({href}) => {
                             </Link>
                         ))}
                     </div>
-                    
-                    
 
                     <div className="Header__icons">
                     <Search router={router} />
 
-                    <Cart />
+                    <Cart useCart={useCart} router={router}/>
 
                 </div>
 
@@ -94,17 +93,15 @@ const  Header = ({href}) => {
 export default  Header;
 
 const Search = ({router}) =>{
-
-    const [query, setQuery ] = useState('')
+    const [searchStr, setSearchStr ] = useState("")
     const [load, setLoad] = useState(false);
-    
 
     useEffect(() => {
         if(load){
-            router.push(`/search?query=${query}`)
+            router.push(`/search?query=${searchStr}`)
         }
         setLoad(true)
-    }, [query]);
+    }, [searchStr]);
 
     
     return(
@@ -113,17 +110,24 @@ const Search = ({router}) =>{
             icon={{
                 name:'search'
             }}
-            value={router.query.query}
-            onChange={(_,data) => setQuery(data.value)}
+            value={searchStr}
+            onChange={( _, data) => setSearchStr(data.value)}
         />
     )
 }
 
-const Cart = () => (
-    <Button icon>
-        <Icon name="shopping bag" />
-    </Button>
-);
+const Cart = ({useCart, router}) => {
+    const { productsCart } = useCart()
+    
+    return(
+        <Button icon >
+            <Icon name="shopping bag" onClick={ () => router.push('/cart')} />
+            <Label color="red" floating circular>
+                {productsCart}
+            </Label>
+        </Button>
+    )
+}
 
 const Phone = () => (
     <Link href="tel:0123-456-789">

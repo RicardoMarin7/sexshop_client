@@ -1,15 +1,26 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Button } from 'semantic-ui-react'
 import ChangePassword from './ChangePassword'
 import Addresses from './Addresses'
+import { useRouter } from 'next/router'
 
 
 const Account = ({user,logout}) => {
     const [ content, setContent] = useState('home')
+    const router = useRouter()
+    const { query } = router
+
+    useEffect(() => {
+        if(query.menu){
+            setContent(query.menu)
+        }
+    }, [query]);
+
     return (
         <div className="Account">
                 <HorizontalSidebar
                     setContent = {setContent}
+                    router={router}
                 />
             <div className="Account__content">
                 <Content 
@@ -22,11 +33,11 @@ const Account = ({user,logout}) => {
     );
 }
 
-const HorizontalSidebar = ({setContent}) => (
+const HorizontalSidebar = ({router}) => (
     <div className="Account__sidebar">
         <Button 
             basic
-            onClick={() => setContent('Addresses')}
+            onClick={() => router.push('/account?menu=addresses')}
         >
             <a className='Account__sidebar__link'>
             Addresses</a>
@@ -34,28 +45,7 @@ const HorizontalSidebar = ({setContent}) => (
         
         <Button 
             basic
-            onClick={() => setContent('lingerie')}
-        >
-            <a className="Account__sidebar__link">
-                    Lingerie
-            </a>
-        </Button>
-        
-        <Button 
-            basic
-        >
-            <a className="Account__sidebar__link">Accesories</a>
-        </Button>
-
-        <Button 
-            basic
-        >
-            <a className="Account__sidebar__link">Massage</a>
-        </Button>
-
-        <Button 
-            basic
-            onClick={() => setContent('changePassword')}
+            onClick={() => router.push('/account?menu=changepassword')}
         >
             <a className="Account__sidebar__link">Change Password</a>
         </Button>
@@ -64,13 +54,13 @@ const HorizontalSidebar = ({setContent}) => (
 
 const Content = ({content, user, logout}) => {
     switch(content){
-        case 'Addresses':
+        case 'addresses':
             return <Addresses />
         
         case 'home':
             return <h1>Home</h1>
         
-        case 'changePassword':
+        case 'changepassword':
             return(
                 <ChangePassword
                     user={user}
@@ -79,7 +69,7 @@ const Content = ({content, user, logout}) => {
             )
 
         default:
-            return null
+            return 'home'
     }
 }
 

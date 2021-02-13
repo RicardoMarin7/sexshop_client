@@ -8,7 +8,7 @@ import ListProduct from '../components/ListProduct'
 
 const Search = () => {
     const [products, setProducts] = useState(null)
-    const {query} = useRouter()
+    const { query } = useRouter()
 
     useEffect(() => {
         document.getElementById("search").focus()

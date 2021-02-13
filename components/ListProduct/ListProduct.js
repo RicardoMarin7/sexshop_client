@@ -1,8 +1,10 @@
 import Link from 'next/link'
 import { Button, Icon } from 'semantic-ui-react'
 import { removeFavoriteApi } from '../../api/favorite'
+import useCart from '../../hooks/useCart'
 
 const Product = ({product, favorite, auth, logout, setReloadWishlist}) => {
+    const { addProductCart } = useCart()
 
     const removeFromFavorites = (productID) =>  {
         removeFavoriteApi(auth.idUser, productID, logout) 
@@ -24,7 +26,7 @@ const Product = ({product, favorite, auth, logout, setReloadWishlist}) => {
                 <p>${product.price}</p>
 
                 <div className="actions">
-                    <Button icon className="addCart" type="button" onClick={ () => console.log('add Cart')}>
+                    <Button icon className="addCart" type="button" onClick={ () => addProductCart(product.slug, 1)}>
                         <Icon name='cart plus' />
                     </Button>
 

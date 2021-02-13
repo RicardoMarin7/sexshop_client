@@ -23,12 +23,6 @@ export default function Home() {
         items={products}
         key={1}
       />
-
-      <MyCarousel 
-        title='Carrusel de prueba'
-        items={products}
-        key={2}
-      />
     </BasicLayout>
   )
 

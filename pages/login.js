@@ -6,7 +6,6 @@ const Login = () => {
         <BasicLayout>
             <LoginComponent />
         </BasicLayout>
-     );
+    );
 }
- 
 export default Login;
