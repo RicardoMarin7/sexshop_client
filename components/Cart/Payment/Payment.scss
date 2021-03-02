@@ -1,0 +1,23 @@
+.Payment{
+    width: 100%;
+    background: #fff;
+    margin: 1em 0;
+    border: 1px solid rgba(34,36,38,.15);
+    box-shadow: none;
+    border-radius: .28571429rem;
+    text-align: left;
+    color: rgba(0,0,0,.87);
+    border-collapse: separate;
+    border-spacing: 0;
+    padding: .92857143em .78571429em;
+
+    &__title{
+        font-size: 3.8rem;
+        margin-left: 2rem;
+    }
+
+    &__subtitle{
+        font-size: .75em;
+        color:$font-transparent;
+    }
+}

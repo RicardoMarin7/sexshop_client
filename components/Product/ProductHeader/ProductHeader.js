@@ -3,13 +3,16 @@ import { Grid, Icon, Button } from 'semantic-ui-react'
 import ProductCarousel from '../ProductCarousel'
 import { isFavoriteApi, addFavoriteApi, removeFavoriteApi } from '../../../api/favorite'
 import useAuth from '../../../hooks/useAuth'
-import { size } from 'lodash'
+import { size, map } from 'lodash'
 import { useRouter } from 'next/router'
 import useCart from '../../../hooks/useCart'
+import classNames from "classnames"
+import { toast } from 'react-toastify'
 
 const ProductHeader = ({product}) => {
     const { auth , logout} = useAuth()
     const [quantity, setQuantity] = useState(1);
+    const [selectedSize, setSelectedSize] = useState(null);
     const [isFavorite, setIsFavorite ] = useState(false)
     const [reloadFavorite, setReloadFavorite] = useState(false)
     const router  = useRouter()
@@ -64,9 +67,32 @@ const ProductHeader = ({product}) => {
                 </Grid.Row>
                 <Grid.Row >
                     <div className="ProductHeader__price">
-                        <p>${product.price} <span>Tax Included</span></p>
+                        <p>${product.price}<span> Tax Included</span></p>
                         <link itemProp="availability" href="https://schema.org/InStock"></link>
                         <meta itemProp="priceCurrency" content="USD"></meta>
+                    </div>
+                </Grid.Row>
+                <Grid.Row >
+                    <div className="ProductHeader__sizes">
+                        {map(product.sizes , productSize =>{
+                            if(productSize.stock > 0){
+                                return (
+                                    <Button
+                                    className={classNames("ProductHeader__sizes__button",{
+                                            active: selectedSize?.id === productSize.id
+                                    })} 
+                                    key={productSize._id}
+                                    onClick={() => setSelectedSize(productSize)}
+                                    >
+                                        {productSize.size}
+                                    </Button>
+                                )
+                            }
+                            else{
+                                return <Button className="ProductHeader__sizes__button" disabled key={productSize._id}>{productSize.size}</Button>
+                            }
+                        })}
+                        {selectedSize ? <p className="ProductHeader__sizes__stock">({selectedSize.stock} in stock)</p> : null}
                     </div>
                 </Grid.Row>
                 <Grid.Row>
@@ -80,7 +106,7 @@ const ProductHeader = ({product}) => {
                                 <Icon name='arrow down' />
                             </Button>
                         </div>
-                        <Button icon labelPosition='left' onClick={ () => addProductCart(product.slug , quantity)} type='submit'>
+                        <Button icon labelPosition='left' onClick={ () => addProductCart(product.slug , quantity, selectedSize)} type='submit'>
                             <Icon name='shopping cart' />
                             Add to Cart
                         </Button>

@@ -11,6 +11,7 @@
 @import '../pages/wishlist.scss';
 @import '../pages/search.scss';
 @import '../pages/cart.scss';
+@import '../pages/orders.scss';
 
 /**************************** Components ****************************/
 @import '../components/Header/Header.scss';
@@ -57,5 +58,14 @@
     //Cart/Fullcart
 @import '../components/Cart/AddressShiping/AddressShiping.scss';
 
+    //Cart/Payment
+@import '../components/Cart/Payment/Payment.scss';
+
+    //Cart/Payment/PaymentForm
+@import '../components/Cart/Payment/PaymentForm/PaymentForm.scss';
+
+    //EmptyPage
 @import '../components/EmptyPage/EmptyPage.scss';
+
+
 

@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import { Grid, Button } from 'semantic-ui-react'
-import { differenceBy, map, set, size } from 'lodash'
+import { Grid } from 'semantic-ui-react'
+import { map, size } from 'lodash'
 import Link from 'next/link'
 import classNames from "classnames"
 import { getAddressesApi } from '../../../api/address'
 import useAuth from '../../../hooks/useAuth'
 import EmptyPage from '../../EmptyPage'
 import { useRouter } from 'next/router'
+import { validateAddressApi } from '../../../api/shippingUSPS'
+import { toast } from 'react-toastify'
 
 
 const AddressShiping = ({setAddress}) => {
@@ -56,9 +58,15 @@ const AddressShiping = ({setAddress}) => {
 
 const Address = ({address, addressActive, setAddressActive, setAddress}) => {
 
-    const changeAddress= () =>{
+    const changeAddress= async () =>{
         setAddressActive(address._id)
-        setAddress(address)
+        // const result = await validateAddressApi(address)
+        // if(result){
+            setAddress(address)
+        // }else{
+            // toast.error('Invalid Address')
+        // }
+
     }
 
     return (

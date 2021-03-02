@@ -1,5 +1,5 @@
 .AddressList__address{
-    background: $font-secondary-lighter;
+    background: $font-secondary;
     padding: 10px 0px 20px 0px;
     border: 1px solid $font;
     border-radius: 4px;
@@ -8,15 +8,16 @@
     padding: 1rem;
 
     h3{
-        border-bottom: 1px solid $font;
+        border-bottom: 1px solid $font-secondary-lighter;
         width: 100%;
         text-align: center;
         font-weight: 700;
         font-size: 2.4rem;
+        color:$font-secondary-lighter;
     }
     
     p{
-        color: $font-secondary;
+        color: $font-secondary-lighter;
         margin: .5rem;
     }
 
@@ -26,8 +27,8 @@
     }
 
     .ui.button{
-        background-color: $font-secondary;
-        color: $font-secondary-lighter;
+        background-color: $font-secondary-lighter;
+        color: $font;
     }
 
     &.active{

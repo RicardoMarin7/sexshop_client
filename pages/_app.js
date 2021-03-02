@@ -11,7 +11,7 @@ import { ToastContainer, toast } from 'react-toastify'
 import AuthContext from '../context/AuthContext'
 import CartContext from '../context/CartContext'
 import { setToken, getToken, removeToken} from '../api/token'
-import { addProductCart, changeCartProductQuantity, countProductsCart, getProductsCart, removeProductCart} from '../api/cart'
+import { addProductCart, changeCartProductQuantity, countProductsCart, getProductsCart, removeProductCart, removerAllProductsCart} from '../api/cart'
 import jtwDecode from 'jwt-decode'
 import { useRouter } from 'next/router'
 
@@ -58,18 +58,18 @@ function MyApp({ Component, pageProps }) {
     }
   }
 
-  const addProduct = (product, quantity) =>{
+  const addProduct = (product, quantity, size) =>{
     const token = getToken()
     if(token){
-      addProductCart(product, quantity)
+      addProductCart(product, quantity, size)
       setReloadCart(true)
     }else{
       toast.warning('To buy products you need to log in')
     }
   }
 
-  const removeProduct = (product) =>{
-    removeProductCart(product)
+  const removeProduct = (product, productSize) =>{
+    removeProductCart(product, productSize)
     setReloadCart(true)
     toast.warning('Product deleted')
   }
@@ -92,10 +92,10 @@ function MyApp({ Component, pageProps }) {
   const cartData = useMemo(
     ()=>({
       productsCart: totalProductsCart,
-      addProductCart: (product, quantity) => addProduct(product, quantity),
+      addProductCart: (product, quantity,size) => addProduct(product, quantity,size),
       getProductsCart,
-      removeProductCart: (product) => removeProduct(product) ,
-      removerAllProductsCart: () => null,
+      removeProductCart: (product, productSize) => removeProduct(product, productSize) ,
+      removerAllProductsCart,
       changeCartProductQuantity: (product, quantity) => changeQuantity(product, quantity),
     }),
     [totalProductsCart]

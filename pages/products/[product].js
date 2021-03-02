@@ -19,7 +19,7 @@ const Product = () => {
         (async () =>{
             const response = await getProductBySlug(query.product)
             setProduct(response)
-            // console.log(response)
+            console.log(response)
         })()
     }, [query]);
 

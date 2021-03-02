@@ -31,6 +31,7 @@
             font-weight: 700;
             font-size: 3.6rem;
             font-family: 'Amatic SC', cursive;
+            margin: 0;
 
             span{
                 font-weight: 300;
@@ -38,6 +39,31 @@
                 color:$font-secondary;
                 font-size: 1.6rem;
             }
+        }
+    }
+
+    &__sizes{
+        &__button.ui.button{
+            border: 1px solid rgba(0,0,0,.25);
+            border-radius: 6px;
+            cursor: pointer;
+            display: -webkit-inline-flex;
+            display: inline-flex;
+            font-size: 12px;
+            font-weight: 400;
+            padding: 1rem .8rem;
+            background-color: $font-secondary-lighter;
+            margin-right: 8px;
+        }
+
+        .ui.button.active{
+            border: 1px solid $font-secondary;
+        }
+
+        &__stock{
+            margin-top: 1rem;
+            font-size: 1.2rem;
+            color: $font-transparent;
         }
     }
 

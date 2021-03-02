@@ -178,8 +178,14 @@ const DropDown = ({logout, name, Link}) =>{
                     </Link>
                 </Dropdown.Item>
 
+                <Dropdown.Item>
+                    <Link href="/orders">
+                        <a>Orders</a>
+                    </Link>
+                </Dropdown.Item>
+
                 <Dropdown.Item
-                    text="Cerrar sesión"
+                    text="Log out"
                     onClick={logout}
                 />
             </Dropdown.Menu>

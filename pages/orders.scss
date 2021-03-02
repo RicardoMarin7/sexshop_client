@@ -1,0 +1,62 @@
+.Orders{
+    background-color: #fff;
+    border: 1px solid rgba(34,36,38,.15);
+    border-radius: .28571429rem;
+    padding: 1rem;
+
+    &__title{
+        font-size: 3.4rem;
+        color: $font;
+    }
+
+    &__id{
+        font-weight: 700;
+        font-size: 1.8rem;
+        color: $font-secondary;
+    }
+
+    &__order{
+        border: 1px solid $font-secondary-light-2;
+        margin: 1rem;
+
+        .content{
+            color:$font!important;
+            .header{
+                color:$font-secondary!important;
+                font-family: 'Open Sans', sans-serif!important;
+                font-size: 1.8rem!important;
+            }
+
+            .description{
+                color:$font-secondary!important;
+                font-family: 'Open Sans', sans-serif!important;
+            }
+        }
+    }
+
+    &__product{
+        margin-bottom: 1rem;
+        display: grid;
+        grid-template-columns: .5fr 3fr;
+        a{
+            display: contents;
+        }
+        &:last-of-type{
+            margin: 0;
+        }
+
+        &_details{
+            h2{
+                color: $font-secondary;
+                margin:0;
+            }
+
+            p{
+                margin: .5rem 0;
+                color: $font-transparent;
+            }
+        }
+    }
+
+
+}

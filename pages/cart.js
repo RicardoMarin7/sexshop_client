@@ -5,6 +5,7 @@ import BasicLayout from '../layouts/BasicLayout'
 import useCart from '../hooks/useCart'
 import useAuth from '../hooks/useAuth'
 import FullCart from '../components/Cart/FullCart'
+import EmptyPage from '../components/EmptyPage'
 
 
 const Cart = () => {
@@ -29,7 +30,11 @@ const Cart = () => {
 const EmptyCart = () => {
     return (
         <BasicLayout>
-            <h2 className="EmptyCart__title">Your cart is empty</h2>
+            <EmptyPage
+                title='Your cart is empty'
+                subtitle={`You don't have any items in your cart`}
+                buttonTitle='Continue shopping'
+            />
         </BasicLayout>
     );
 }

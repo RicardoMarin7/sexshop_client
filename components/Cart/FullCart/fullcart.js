@@ -4,18 +4,24 @@ import { map, size} from 'lodash'
 import { getProductBySlug } from '../../../api/product'
 import BasicLayout from '../../../layouts/BasicLayout'
 import AddressShiping from '../AddressShiping'
+import Payment from '../Payment'
+import Link from 'next/link'
 
 const FullCart = ({products, removeProductCart, changeCartProductQuantity}) => {
     const [productsData, setProductsData] = useState();
     const [total, setTotal] = useState(0)
     const [address, setAddress] = useState(null);
     
-    const removeProduct = (product) =>{
-        removeProductCart(product)
+    const removeProduct = (slug, productSize) =>{
+        removeProductCart(slug, productSize)
         const cartTemp = []
         let totalTemp = 0
+        
         for(let i = 0; i < productsData.length; i++){
-            if(productsData[i].slug !== product){
+            if(productsData[i].slug !== slug){
+                cartTemp.push(productsData[i])
+                totalTemp = totalTemp + productsData[i].price * productsData[i].quantity
+            }else if(productsData[i].size !== productSize){
                 cartTemp.push(productsData[i])
                 totalTemp = totalTemp + productsData[i].price * productsData[i].quantity
             }
@@ -32,7 +38,8 @@ const FullCart = ({products, removeProductCart, changeCartProductQuantity}) => {
                 const data = await getProductBySlug(product.product)
                 data = {
                     ...data,
-                    quantity: product.quantity
+                    quantity: product.quantity,
+                    size: product.size
                 }
                 productsTemp.push(data)
                 totalTemp = totalTemp + product.quantity * data.price
@@ -92,14 +99,22 @@ const FullCart = ({products, removeProductCart, changeCartProductQuantity}) => {
                     </Table.Header>
                     <Table.Body className="FullCart__body">
                         {map(productsData, product =>(
-                            <Table.Row key={product.id}>
+                            <Table.Row key={`${product.id}_${product.size}`}>
                                 <Table.Cell className="FullCart__row_img" width='2'>
                                     <Image src={product.poster.formats.thumbnail.url}/>
                                 </Table.Cell>
-                                
                                 <Table.Cell width="9">
-                                    <h3 className="FullCart__row_title">{product.title}</h3>
+                                    <Link href={`/products/${product.slug}`}>
+                                        <a>
+                                            <h3 className="FullCart__row_title">{product.title}</h3>
+                                        </a>
+                                    </Link>
+                                    <p className="FullCart__row_size">{product.size}</p>
                                     <p className="FullCart__row_description">{product.category.title}</p>
+                                </Table.Cell>
+
+                                <Table.Cell width="1">
+                                    <h3 className="FullCart__row_price">${product.price.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</h3>
                                 </Table.Cell>
                                 
                                 <Table.Cell width="2">
@@ -117,15 +132,11 @@ const FullCart = ({products, removeProductCart, changeCartProductQuantity}) => {
                                 </Table.Cell>
                                 
                                 <Table.Cell width="1">
-                                    <h3 className="FullCart__row_price">${product.price.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</h3>
-                                </Table.Cell>
-                                
-                                <Table.Cell width="1">
                                     <h3 className="FullCart__row_price">${product.quantity ? (product.price * product.quantity).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) : 0}</h3>
                                 </Table.Cell>
                                 
                                 <Table.Cell width="1">
-                                    <Button icon className="FullCart__row_delete" onClick={ () => removeProduct(product.slug)}>
+                                    <Button icon className="FullCart__row_delete" onClick={ () => removeProduct(product.slug, product.size)}>
                                         <Icon name='close' />
                                     </Button>
                                 </Table.Cell>
@@ -148,6 +159,8 @@ const FullCart = ({products, removeProductCart, changeCartProductQuantity}) => {
                 </Table>
 
                 <AddressShiping setAddress={setAddress} />
+
+                {address && <Payment products={productsData} address={address}/> }
             </div>
         </BasicLayout>
     );
