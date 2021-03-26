@@ -2,7 +2,7 @@ import { BASE_PATH } from '../utils/constants'
 
 export const getLastProductsApi = async (limit) => {
     try {
-        const url = `${BASE_PATH}/products?_limit=${limit}`
+        const url = `${BASE_PATH}/products?_limit=${limit}&sizes_null=false`
         const response = await fetch(url)
         const result = await response.json()
         return result

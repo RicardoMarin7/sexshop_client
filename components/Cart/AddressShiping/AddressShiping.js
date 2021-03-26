@@ -7,7 +7,8 @@ import { getAddressesApi } from '../../../api/address'
 import useAuth from '../../../hooks/useAuth'
 import EmptyPage from '../../EmptyPage'
 import { useRouter } from 'next/router'
-import { validateAddressApi } from '../../../api/shippingUSPS'
+import { calculateNationalShippingCost, getPackages } from '../../../api/shippingUSPS'
+import { animateScroll as Scroll } from 'react-scroll'
 import { toast } from 'react-toastify'
 
 
@@ -63,6 +64,10 @@ const Address = ({address, addressActive, setAddressActive, setAddress}) => {
         // const result = await validateAddressApi(address)
         // if(result){
             setAddress(address)
+            Scroll.scrollToBottom({
+                smooth:'easeInQuad',
+                delay:5
+            })
         // }else{
             // toast.error('Invalid Address')
         // }
@@ -78,7 +83,7 @@ const Address = ({address, addressActive, setAddressActive, setAddress}) => {
             <h3>{address.title}</h3>
             <p>{address.name}</p>
             <p>{address.address}</p>
-            <p>{address.city}, {address.zipcode}, {address.state}</p>
+            <p>{address.city}, {address.zipcode}, {address.state}, {address.country}</p>
             <p>{address.phone}</p>
         </div>
     );

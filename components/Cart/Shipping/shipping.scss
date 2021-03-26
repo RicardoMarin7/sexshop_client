@@ -1,4 +1,4 @@
-.Payment{
+.Shipping{
     width: 100%;
     background: #fff;
     margin: 1em 0;
@@ -21,26 +21,30 @@
         color:$font-transparent;
     }
 
-    &__details{
+    &__options{
         display: grid;
-        grid-template-columns: 60% 40%;
-    }
 
-    &__form{
-        display: grid;
-        place-items: center;
-    }
-
-   
-    &__summary :is(th, td){
-        color:$font!important;
-    }
-
-    &__summary{
-        table{
-            max-width: 35rem;
+        .ui.radio.checkbox label{
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            color:$font;
         }
-        display: grid;
-        place-items: center;
+
+        span{
+            font-weight: 300;
+            color: $font-transparent;
+            font-size: 1.4rem;
+        }
+
+        &_option{
+            span.disabled{
+                opacity: .5;
+            }
+        }
+    }
+
+    &__price{
+        opacity: 1;
+        color: $highlight!important;
     }
 }

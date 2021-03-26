@@ -56,17 +56,31 @@
     color: $font;
     display: flex;
     flex-direction: column;
+    background-image: url('../../public/texture.png')!important;
 
     .Header__logo{
         height: 15rem;
+        display: grid;
+        align-items: center;
+
+        @media(max-width:768px){
+            justify-content: center;
+        }
+
+        a{
+            display: contents;
+        }
+
+
         h1{
             font-size: 5rem;
-            display: flex;
-            flex-direction: column;
+            color: $font;
         }
         span{
             color:$font-secondary;
         }
+
+        
     }
 
     .Header__menu{
@@ -90,6 +104,14 @@
                     transform: scale(1.1);
                     color: $font;
                     font-weight: 700;
+                }
+
+                @media(max-width:768px){
+                    &:hover{
+                        transform: scale(1);
+                        color: $font-secondary-lighter;
+                        font-weight: 700;
+                    }
                 }
             }
 
@@ -120,7 +142,6 @@
 
                 &.active{
                     transform: scaleY(1);
-                    
                 }
             }
         }

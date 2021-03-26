@@ -9,7 +9,7 @@ import useAuth from '../../../../hooks/useAuth'
 import useCart from '../../../../hooks/useCart'
 
 
-const PaymentForm = ({ products, address }) => {
+const PaymentForm = ({ products, address, shippingCost, shippingType}) => {
 
   const { removerAllProductsCart } = useCart()
   const router = useRouter()
@@ -50,6 +50,11 @@ const PaymentForm = ({ products, address }) => {
         
         if(!stripe || !elements) return
 
+        if(shippingCost === null) {
+          toast.error('We need a shipping cost, please check your address') 
+          return
+        }
+
         const cardElement = elements.getElement(CardElement)
         const result = await stripe.createToken(cardElement)
         if(result.error){
@@ -60,6 +65,8 @@ const PaymentForm = ({ products, address }) => {
             products,
             auth.idUser,
             address,
+            shippingCost,
+            shippingType,
             logout
           )
 
@@ -90,6 +97,7 @@ const PaymentForm = ({ products, address }) => {
               </Button>
             </div>
           </fieldset>
+          <p>We do not store your card information</p>
         </form>
     );
 }

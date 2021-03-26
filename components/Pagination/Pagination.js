@@ -3,7 +3,7 @@ import { Pagination as SemanticPagination } from 'semantic-ui-react'
 import { useRouter } from 'next/router'
 import queryString from 'query-string'
 
-const Pagination = ({totalProducts, page, limitPerPage, startItem}) => {
+const Pagination = ({totalProducts, page, limitPerPage, startItem, setLoader}) => {
     const totalPages = Math.ceil(totalProducts / limitPerPage)
     const router = useRouter()
     const urlParse = queryString.parseUrl(router.asPath)

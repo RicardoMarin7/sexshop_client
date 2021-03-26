@@ -66,6 +66,8 @@ export const getMeAPI = async (logout) => {
         const result = await authFetch(url, null, logout)
         return result ? result : null
     } catch (error) {
+        console.log(error)
+        return null
     }
 }
 

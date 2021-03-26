@@ -1,7 +1,9 @@
 import { BASE_PATH, CART } from '../utils/constants'
+import { getMeAPI } from '../api/user'
 import { toast } from 'react-toastify'
 import { size, find, remove, map} from 'lodash'
 import { authFetch } from '../utils/fetch'
+import { useReducer } from 'react'
 
 export const getProductsCart = () => {
     const cart = JSON.parse(localStorage.getItem(CART))
@@ -61,14 +63,21 @@ export const countProductsCart = () =>{
     }
 }
 
-export const changeCartProductQuantity = (product, quantity) =>{
+export const changeCartProductQuantity = (product, quantity, size) =>{
+    if(!quantity) return null
+    if(quantity > size?.stock){
+        toast.error('Insufficient Stock')
+        return null
+    }
     const cart = JSON.parse(localStorage.getItem(CART))
     const cartTemp = []
     for(let i = 0; i < cart.length; i++){
         if(cart[i].product !== product.slug){
             cartTemp.push(cart[i])
+        }else if(cart[i].size !== size.size){
+            cartTemp.push(cart[i])   
         }else{
-            cartTemp.push({product:product.slug, quantity:quantity})
+            cartTemp.push({product:product.slug, quantity:quantity, size: size.size})
         }
     }
     localStorage.setItem(CART, JSON.stringify(cartTemp))
@@ -90,7 +99,7 @@ export const removeProductCart = (slug, productSize) =>{
     }
 }
 
-export const paymentCartApi = async (token, products, idUser, address, logout) =>{
+export const paymentCartApi = async (token, products, idUser, address, shippingCost, shippingType, logout) =>{
     try {
         const addressShiping = address
         delete addressShiping.user
@@ -111,6 +120,15 @@ export const paymentCartApi = async (token, products, idUser, address, logout) =
             }
         ))
 
+        const user = await getMeAPI(idUser)
+        
+        const userData = {
+            email: user.email,
+            name: user.name,
+            lastname: user.lastname
+        }
+
+        const userEmail = user.email
 
         const url = `${BASE_PATH}/orders`
         const params ={
@@ -123,7 +141,11 @@ export const paymentCartApi = async (token, products, idUser, address, logout) =
                 products,
                 idUser,
                 addressShiping,
-                productDetails
+                productDetails,
+                shippingCost,
+                shippingType,
+                userEmail,
+                userData
             })
         }
 

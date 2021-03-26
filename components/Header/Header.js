@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { Input, Button, Icon, Dropdown, Label } from 'semantic-ui-react'
+import { Input, Button, Icon, Dropdown, Label, Image } from 'semantic-ui-react'
 import useAuth from '../../hooks/useAuth'
 import { getMeAPI } from '../../api/user'
 import { getCategoriesApi } from '../../api/categories'
 import { map } from 'lodash'
 import { useRouter } from 'next/router'
 import useCart from '../../hooks/useCart'
+import useHomeConfig from '../../hooks/useHomeConfig'
 
 const  Header = ({href}) => {
     const { logout, auth} = useAuth()
@@ -14,7 +15,16 @@ const  Header = ({href}) => {
     const [ categories, setCategories] = useState([])
     const [ menuActive, isMenuActive ] = useState(false)
     const [ user, setUser ] = useState(undefined)
+    const { homeConfig } = useHomeConfig()
+    
     const router = useRouter()
+
+    const getLogo = () =>{
+        if(homeConfig?.logo?.formats?.thumbnail){
+            return homeConfig.logo.formats.thumbnail.url
+        }
+        return homeConfig.logo.url
+    }
 
     useEffect(() => {
         (async () =>{
@@ -35,7 +45,7 @@ const  Header = ({href}) => {
         <>
         <div className="TopBar">
             <div className="TopBar__Phone">
-                <Phone />
+                <Phone homeConfig={homeConfig} />
             </div>
 
             <div className="TopBar__Nav">
@@ -45,7 +55,12 @@ const  Header = ({href}) => {
         </div>
         <header className="Header__primary">
                 <div className="Header__logo">
-                    <h1>Sex<span>Shop</span></h1>
+                    <Link href='/'>
+                        <a>
+                            {homeConfig?.logo ? <Image src={getLogo()} /> : (<h1>Vares<span>Bros</span></h1>)}
+                        </a>
+                    </Link>
+                        
                 </div>
 
                 <nav className="Header__menu">
@@ -129,12 +144,15 @@ const Cart = ({useCart, router}) => {
     )
 }
 
-const Phone = () => (
-    <Link href="tel:0123-456-789">
-        <a><Icon name="phone volume"/>0123-456-789</a>
-    </Link>
+const Phone = ({homeConfig}) => {
+    const phone = homeConfig?.phone || ''
+    return(
+        <Link href={`tel:${phone}`}>
+            <a><Icon name="phone volume"/>{phone}</a>
+        </Link>
+    )
+}
 
-);
 
 const Message = () =>(
     <Link href="!#">

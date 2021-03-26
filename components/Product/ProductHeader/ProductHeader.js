@@ -74,6 +74,7 @@ const ProductHeader = ({product}) => {
                 </Grid.Row>
                 <Grid.Row >
                     <div className="ProductHeader__sizes">
+                        <p>Select a size</p>
                         {map(product.sizes , productSize =>{
                             if(productSize.stock > 0){
                                 return (

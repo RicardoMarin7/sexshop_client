@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 
 
 const Account = ({user,logout}) => {
-    const [ content, setContent] = useState('home')
+    const [ content, setContent] = useState('addresses')
     const router = useRouter()
     const { query } = router
 

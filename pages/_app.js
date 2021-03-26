@@ -10,8 +10,10 @@ import { ToastContainer, toast } from 'react-toastify'
 //Token
 import AuthContext from '../context/AuthContext'
 import CartContext from '../context/CartContext'
+import HomeConfigContext from '../context/HomeConfigContext'
 import { setToken, getToken, removeToken} from '../api/token'
 import { addProductCart, changeCartProductQuantity, countProductsCart, getProductsCart, removeProductCart, removerAllProductsCart} from '../api/cart'
+import { getHomeSettings } from '../api/home'
 import jtwDecode from 'jwt-decode'
 import { useRouter } from 'next/router'
 
@@ -21,6 +23,7 @@ function MyApp({ Component, pageProps }) {
   const [ reloadUser, setReloadUser ] = useState(false)
   const [ totalProductsCart, setTotalProductsCart ] = useState(0)
   const [ reloadCart, setReloadCart ] = useState(false)
+  const [homeConfig, setHomeConfig] = useState(undefined)
   const router = useRouter()
 
   useEffect( () => {
@@ -41,6 +44,10 @@ function MyApp({ Component, pageProps }) {
     setTotalProductsCart(countProductsCart())
     setReloadCart(false)
   }, [reloadCart, auth]);
+
+  useEffect(()=>{
+    getHomeConfig()
+  },[])
 
   const login = (token) =>{
     setToken(token)
@@ -74,9 +81,14 @@ function MyApp({ Component, pageProps }) {
     toast.warning('Product deleted')
   }
 
-  const changeQuantity = (product, quantity) =>{
-    changeCartProductQuantity(product, quantity)
+  const changeQuantity = (product, quantity, size) =>{
+    changeCartProductQuantity(product, quantity, size)
     setReloadCart(true) 
+  }
+
+  const getHomeConfig = async () =>{
+    const response = await getHomeSettings()
+    if(response) setHomeConfig(response)
   }
 
   const authData = useMemo(
@@ -96,29 +108,39 @@ function MyApp({ Component, pageProps }) {
       getProductsCart,
       removeProductCart: (product, productSize) => removeProduct(product, productSize) ,
       removerAllProductsCart,
-      changeCartProductQuantity: (product, quantity) => changeQuantity(product, quantity),
+      changeCartProductQuantity: (product, quantity, size) => changeQuantity(product, quantity, size),
     }),
     [totalProductsCart]
+  )
+
+  const homeConfigData = useMemo(
+    ()=>({
+      homeConfig,
+      getHomeConfig
+    }),
+    [homeConfig]
   )
 
   if(auth === undefined) return null
 
   return(
-    <AuthContext.Provider value={authData}>
-      <CartContext.Provider value={cartData}>
-        <Component {...pageProps} />
-        <ToastContainer 
-          position="top-right"
-          autoClose={5000}
-          newestOnTop
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss={false}
-          draggable
-          pauseOnHover
-        />
-      </CartContext.Provider>
-    </AuthContext.Provider>
+    <HomeConfigContext.Provider value={homeConfigData}>
+      <AuthContext.Provider value={authData}>
+        <CartContext.Provider value={cartData}>
+          <Component {...pageProps} />
+          <ToastContainer 
+            position="top-right"
+            autoClose={5000}
+            newestOnTop
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss={false}
+            draggable
+            pauseOnHover
+          />
+        </CartContext.Provider>
+      </AuthContext.Provider>
+    </HomeConfigContext.Provider>
     )
 }
 

@@ -7,6 +7,7 @@ import { size, map } from 'lodash'
 import { Loader, Grid} from 'semantic-ui-react'
 import Pagination from '../../components/Pagination'
 import ListProduct from '../../components/ListProduct'
+import { animateScroll as Scroll } from 'react-scroll'
 
 const Category = () => {
     const {query} = useRouter()
@@ -26,6 +27,7 @@ const Category = () => {
     useEffect(() => {
         (async ()=>{
             if(query.category){
+                Scroll.scrollToTop({smooth:'easeInQuad', delay: 5})
                 const response = await getProductByCategoryApi(query.category, limitPerPage, getStartItem())
                 setProducts(response)
             }

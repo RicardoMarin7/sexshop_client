@@ -64,7 +64,7 @@ const Address = ({address, logout, setReloadAddresses, setEditAddress}) =>{
             <h3>{address.title}</h3>
             <p>{address.name}</p>
             <p>{address.address}</p>
-            <p>{address.city}, {address.zipcode}, {address.state}</p>
+            <p>{address.city}, {address.zipcode}, {address.state}, {address.country}</p>
             <p>{address.phone}</p>
 
             <div className="AdressList__actions">

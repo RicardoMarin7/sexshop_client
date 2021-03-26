@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import BasicLayout from '../layouts/BasicLayout'
 import { getLastProductsApi } from '../api/product'
-import { size, map } from 'lodash'
+import { getHomeSettings } from '../api/home'
 import MyCarousel from '../components/MyCarousel'
-import { validateAddressApi } from '../api/shippingUSPS'
+import { validateAddressApi, calculateNationalShippingCost, selectContainer } from '../api/shippingUSPS'
+import { size, map } from 'lodash'
+import MainSlider from '../components/MainSlider'
 
 export default function Home() {
 
   const [products, setProducts] = useState([])
-
-
 
   useEffect(() => {
     (async () => {
@@ -21,6 +21,7 @@ export default function Home() {
 
   return (
     <BasicLayout>
+      <MainSlider />
       <MyCarousel 
         title='Latest Products'
         items={products}

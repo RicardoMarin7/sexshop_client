@@ -1,6 +1,7 @@
 .FullCart{
     border-radius: 1rem;
 
+
     &__title{
         font-size: 3.8rem;
         margin-left: 2rem;
@@ -14,6 +15,7 @@
         &_title{
             font-size: 2.8rem;
             color:$font;
+            display: contents;
         }
 
         &_description{
@@ -40,6 +42,15 @@
                     appearance: none;
                     margin:0;
                 }
+            }
+        }
+
+        &_size{
+            span{
+                font-weight: 300;
+                font-family: 'Open Sans', sans-serif;
+                color:$font-secondary;
+                font-size: 1rem;
             }
         }
 
