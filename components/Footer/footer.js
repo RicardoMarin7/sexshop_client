@@ -11,7 +11,7 @@ const Footer = () => {
         <div className="Footer">
             <div className="container">
                 <div className="Footer__container">
-                    { homeConfig?.socials ? (
+                    { homeConfig.socials ? (
                         <div className="Footer__socials">
                             { map( homeConfig.socials, social =>(
                                 <div className={social.network} key={social._id}>
