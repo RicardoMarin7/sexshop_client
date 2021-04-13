@@ -12,9 +12,11 @@
 @import '../pages/search.scss';
 @import '../pages/cart.scss';
 @import '../pages/orders.scss';
+@import '../pages/privacypolicy.scss';
 
 /**************************** Components ****************************/
 @import '../components/Header/Header.scss';
+@import '../components/Footer/footer.scss';
 
     //Register Form
 @import '../components/Auth/Register/register.scss';
@@ -72,6 +74,8 @@
 
     //Main Slider
 @import '../components/MainSlider/MainSlider.scss';
+
+    
 
 
 

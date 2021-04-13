@@ -4,11 +4,11 @@ import { useRouter } from 'next/router'
 import { getProductBySlug, getRelatedProducts } from '../../api/product'
 import ProductHeader from '../../components/Product/ProductHeader'
 import marked from 'marked'
+import Seo from '../../components/Seo'
 
 const Product = () => {
-    const {query} = useRouter()
+    const {query, asPath} = useRouter()
     const [product, setProduct] = useState(null);
-  
 
     const getAdditionalInfo = () =>{
         const rawMark = marked(product.additional_info)
@@ -35,6 +35,12 @@ const Product = () => {
 
     return (
         <BasicLayout>
+            <Seo 
+                title={`${product ? product?.title : 'Products'}`}
+                url={`${asPath ? asPath : null}` }
+                image={product ? product?.poster?.formats?.small?.url : null}
+                description={product ? product?.description : null}
+            />
             {product ? <ProductHeader product={product} /> : null}
             {product?.additional_info ? (
                 <div className="Additional_info">

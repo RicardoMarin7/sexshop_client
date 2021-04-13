@@ -4,6 +4,7 @@ import AccountComponent from '../components/Account'
 import { useRouter } from 'next/router'
 import { getMeAPI } from '../api/user'
 import useAuth from '../hooks/useAuth'
+import Seo from '../components/Seo'
 
 const Account = () => {
     const [user, setUser] = useState(undefined)
@@ -25,6 +26,9 @@ const Account = () => {
 
     return ( 
         <BasicLayout>
+            <Seo 
+                title='Account'
+            />
             <AccountComponent 
                 user={user}
                 logout={logout}

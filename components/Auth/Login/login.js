@@ -7,12 +7,14 @@ import Link from 'next/link'
 import { loginAPI } from '../../../api/user'
 import useAuth from '../../../hooks/useAuth'
 import { toast } from 'react-toastify'
+import useHomeConfig from '../../../hooks/useHomeConfig'
 
 
 const Login = () => {
     const router = useRouter()
     const { login, auth } = useAuth()
-
+    const { homeConfig } = useHomeConfig()
+    const Logo = homeConfig?.logo.formats.large.url
     const formik = useFormik(
         {
             initialValues: initialValues(),
@@ -22,10 +24,10 @@ const Login = () => {
                 const response = await loginAPI(formData)      
                 if(response?.jwt){
                     login(response.jwt)
-                    toast.success('Inicio de sesión éxitoso')
+                    toast.success('Successful Login')
                     router.push('/')
                 }else{
-                    toast.error('El email o la contraseña es incorrecto')
+                    toast.error('Email or password are incorrect')
                 }
                 setLoading(false)
             } 
@@ -35,11 +37,10 @@ const Login = () => {
 
     return ( 
         <div className="Login">
-            
             <Form className="Login__form" onSubmit={formik.handleSubmit}>
-                {/* <img src="/icono_light.svg" alt="Icono de Ecommerce Nahual" className="Login__logo"/> */}
+                {Logo ? <img src={Logo} alt="Logo Vares Bros" className="Login__logo"/> : null}
                 
-                <h1>Iniciar Sesión</h1>
+                <h1>Log In</h1>
 
                 <Form.Input 
                     name="identifier"
@@ -62,22 +63,22 @@ const Login = () => {
 
                 <div className="Login__button__container">
                     <Button className="Login__button" type="submit" loading={loading}>
-                        Iniciar Sesión
+                        Log in
                     </Button>
                 </div>
 
                 <p>
-                    ¿No tienes cuenta?&nbsp;  
+                    You do not have an account?&nbsp;  
                     <Link href="/register">
                         <a>
-                            Crear una nueva cuenta
+                            Create a new account
                         </a>
                     </Link>
                 </p>
                 <p>
-                    <Link href="/resetpassword">
+                    <Link href="/forgotpassword">
                         <a>
-                            He olvidado mi contraseña
+                            I forgot my password
                         </a>
                     </Link>
                 </p>
@@ -88,8 +89,8 @@ const Login = () => {
 
 const validationSchema = () =>(
     {
-        identifier: Yup.string().email("Debe ser un email válido").required('Tu email es necesario'),
-        password: Yup.string().required('Tu contraseña es obligatoria')
+        identifier: Yup.string().email("it must be a valid email").required('Your email is required'),
+        password: Yup.string().required('Your password is required')
     }
 )
 

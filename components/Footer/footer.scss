@@ -1,0 +1,31 @@
+.Footer{
+    width: 100%;
+    min-height: 20rem;
+
+    .container{
+        .Footer__container{
+
+            .Footer__socials{
+                display: flex;
+                font-size: 3.6rem;
+                i{
+                    color:$font;
+                }
+            }
+
+            .Footer__links{
+                a{
+                    font-size:1.6;
+                    color: $font;
+                    margin-right: 1rem;
+                    font-family: 'Open Sans';
+                }
+
+                .Copyright{
+                    font-size: 1rem;
+                }
+            }
+
+        }
+    }
+}

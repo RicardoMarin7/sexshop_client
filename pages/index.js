@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import BasicLayout from '../layouts/BasicLayout'
 import { getLastProductsApi } from '../api/product'
-import { getHomeSettings } from '../api/home'
 import MyCarousel from '../components/MyCarousel'
-import { validateAddressApi, calculateNationalShippingCost, selectContainer } from '../api/shippingUSPS'
-import { size, map } from 'lodash'
+import { size } from 'lodash'
 import MainSlider from '../components/MainSlider'
+import SEO from '../components/Seo'
 
 export default function Home() {
 
@@ -21,6 +20,9 @@ export default function Home() {
 
   return (
     <BasicLayout>
+      <SEO 
+        title='Home'
+      />
       <MainSlider />
       <MyCarousel 
         title='Latest Products'

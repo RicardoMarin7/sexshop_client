@@ -5,9 +5,12 @@ import * as Yup from 'yup'
 import Link from 'next/link'
 import { toast } from 'react-toastify'
 import { resetPasswordAPI } from '../../../api/user'
+import useHomeConfig from '../../../hooks/useHomeConfig'
 
 const ResetPassword = () => {
     const [ loading, setLoading ] = useState(false)
+    const { homeConfig } = useHomeConfig()
+    const Logo = homeConfig?.logo.formats.large.url
 
     const formik = useFormik(
         {
@@ -15,8 +18,8 @@ const ResetPassword = () => {
             validationSchema:Yup.object(validationSchema()),
             onSubmit: async (formData) => {
                 setLoading(true)
-                console.log(formData.identifier)
-                const response = await resetPasswordAPI(formData.identifier)      
+                const response = await resetPasswordAPI(formData.identifier)   
+                console.log(response)   
                 setLoading(false)
             } 
         })
@@ -24,9 +27,9 @@ const ResetPassword = () => {
     return (
         <div className="Reset">
             <Form className="Reset__form" onSubmit={formik.handleSubmit}>
-                {/* <img src="/icono_light.svg" alt="Icono de Ecommerce Nahual" className="Login__logo"/> */}
+                {Logo ? <img src={Logo} alt="Logo Vares Bros" className="Login__logo"/> : null}
                 
-                <h1>Recuperar Contraseña</h1>
+                <h1>Recover Password</h1>
 
                 <Form.Input 
                     name="identifier"
@@ -38,22 +41,22 @@ const ResetPassword = () => {
 
                 <div className="Reset__button__container">
                     <Button className="Reset__button" type="submit" loading={loading}>
-                        Recuperar
+                        Recover
                     </Button>
                 </div>
 
                 <p>
-                    ¿No tienes cuenta?&nbsp;  
+                    You do not have an account?&nbsp;  
                     <Link href="/register">
                         <a>
-                            Crear una nueva cuenta
+                            Create account
                         </a>
                     </Link>
                 </p>
                 <p>
                     <Link href="/login">
                         <a>
-                            Iniciar Sesión
+                            Log in
                         </a>
                     </Link>
                 </p>

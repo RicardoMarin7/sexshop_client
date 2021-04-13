@@ -2,11 +2,11 @@ import ResetComponent from '../components/Auth/ResetPassword'
 import BasicLayout from '../layouts/BasicLayout'
 import Seo from '../components/Seo';
 
-const ResetPassword = () => {
+const ForgotPassword = () => {
     return (  
         <BasicLayout>
             <Seo 
-                title='Reset Password'
+                title='Forgot Password'
             />
             <ResetComponent />
         </BasicLayout>
@@ -14,4 +14,4 @@ const ResetPassword = () => {
 }
 
  
-export default ResetPassword;
+export default ForgotPassword;

@@ -42,15 +42,16 @@ export const loginAPI = async formData =>{
 
 export const resetPasswordAPI = async email =>{
     try {
-        const url = `${BASE_PATH}/auth/forgot-password`
+        const urlApi = `${BASE_PATH}/auth/forgot-password`
+        const url = 'https://varesbros.com/resetpassword'
         const params = {
             method: "POST",
             headers:{
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({email})
+            body: JSON.stringify({email, url})
         }
-        const response = await fetch(url,params)
+        const response = await fetch(urlApi,params)
         const result = await response.json()
         return result
 

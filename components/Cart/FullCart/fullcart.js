@@ -8,6 +8,7 @@ import Payment from '../Payment'
 import Shipping from '../Shipping'
 import Link from 'next/link'
 import { toast } from 'react-toastify'
+import Seo from '../../Seo'
 
 const FullCart = ({products, removeProductCart, changeCartProductQuantity}) => {
     const [productsData, setProductsData] = useState();
@@ -136,6 +137,7 @@ const FullCart = ({products, removeProductCart, changeCartProductQuantity}) => {
 
     return (
         <BasicLayout>
+            <Seo />
             <div className="FullCart">
                 <Table striped className="FullCart__table">
                     <Table.Header>

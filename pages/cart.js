@@ -6,6 +6,7 @@ import useCart from '../hooks/useCart'
 import useAuth from '../hooks/useAuth'
 import FullCart from '../components/Cart/FullCart'
 import EmptyPage from '../components/EmptyPage'
+import Seo from '../components/Seo'
 
 
 const Cart = () => {
@@ -30,6 +31,9 @@ const Cart = () => {
 const EmptyCart = () => {
     return (
         <BasicLayout>
+            <Seo
+                title='Cart'
+            />
             <EmptyPage
                 title='Your cart is empty'
                 subtitle={`You don't have any items in your cart`}

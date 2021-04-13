@@ -5,10 +5,11 @@ import { useRouter } from 'next/router'
 import { size, map } from 'lodash'
 import { Loader, Grid } from 'semantic-ui-react'
 import ListProduct from '../components/ListProduct'
+import Seo from '../components/Seo'
 
 const Search = () => {
     const [products, setProducts] = useState(null)
-    const { query } = useRouter()
+    const { query, asPath } = useRouter()
 
     useEffect(() => {
         document.getElementById("search").focus()
@@ -31,6 +32,11 @@ const Search = () => {
 
     return (
         <BasicLayout>
+            <Seo 
+                title={`Search: ${query.query}`}
+                url={`${asPath}`}
+                description={'Find all the items you need to fulfill your fantasies'}
+            />
             <div className="Search">
                 <h1 className="Search__title">Search</h1>
                 <h2 className="Search__query">{query.query}</h2>

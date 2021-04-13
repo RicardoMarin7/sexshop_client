@@ -5,6 +5,7 @@ import { size, forEach, map } from 'lodash'
 import {getMyFavoritesApi} from '../api/favorite'
 import useAuth from '../hooks/useAuth'
 import ListProduct from '../components/ListProduct'
+import Seo from '../components/Seo'
 
 
 
@@ -32,6 +33,11 @@ const Wishlist = () => {
 
     return (
         <BasicLayout>
+            <Seo 
+                title='Wishlist'
+                url='/wishlist'
+                description='Your most desired items'
+            />
             <div className="Wishlist">
                 <h1 className="Wishlist__title">Wishlist</h1>
                 <div className="Wishlist__products">

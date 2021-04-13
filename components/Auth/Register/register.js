@@ -6,9 +6,12 @@ import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { toast } from 'react-toastify'
 import { registerAPI } from '../../../api/user'
+import useHomeConfig from '../../../hooks/useHomeConfig'
 
 const Register = () => {
     const router = useRouter()
+    const { homeConfig } = useHomeConfig()
+    const Logo = homeConfig?.logo.formats.large.url
     const formik = useFormik(
         {
             initialValues: initialValues(),
@@ -17,10 +20,10 @@ const Register = () => {
                 setLoading(true)
                 const response = await registerAPI(formData)                
                 if(response?.jwt){
-                    toast.success('Registro éxitoso')
+                    toast.success('Successful Register')
                     router.push('/login')
                 }else{
-                    toast.error('Error al registrar al usuario')
+                    toast.error('There was an error registering the user')
                 }
                 setLoading(false)
             } 
@@ -31,14 +34,14 @@ const Register = () => {
         <div className="Register">
             
             <Form className="Register__form" onSubmit={formik.handleSubmit}>
-                {/* <img src="/icono_light.svg" alt="Icono de Ecommerce Nahual" className="Register__logo"/> */}
+                {Logo ? <img src={Logo} alt="Logo Vares Bros" className="Login__logo"/> : null}
                 
-                <h1>CREA TU NUEVA CUENTA</h1>
+                <h1>Create a new account</h1>
                 
                 <Form.Input 
                     name="name"
                     type="text"
-                    placeholder="Nombre"
+                    placeholder="Name"
                     onChange={formik.handleChange}
                     error={formik.errors.name}
                 />
@@ -47,7 +50,7 @@ const Register = () => {
                 <Form.Input 
                     name="lastname"
                     type="text"
-                    placeholder="Apellidos"
+                    placeholder="Lastname"
                     onChange={formik.handleChange}
                     error={formik.errors.lastname}
                 />
@@ -63,7 +66,7 @@ const Register = () => {
                 <Form.Input 
                     name="password"
                     type="password"
-                    placeholder="Contraseña"
+                    placeholder="Password"
                     onChange={formik.handleChange}
                     error={formik.errors.password}
                     />
@@ -71,22 +74,22 @@ const Register = () => {
                 <Form.Input 
                     name="confirm"
                     type="password"
-                    placeholder="Confirmar contraseña"
+                    placeholder="Confirm Password"
                     onChange={formik.handleChange}
                     error={formik.errors.confirm}
                 />
 
                 <div className="Register__button__container">
                     <Button className="Register__button" type="submit" loading={loading}>
-                        Crear Cuenta
+                        Create Account
                     </Button>
                 </div>
 
                 <p>
-                    ¿Ya tienes cuenta?&nbsp;  
+                    You already have an account?&nbsp;  
                     <Link href="/login">
                         <a>
-                            Inicia sesión
+                            Log in
                         </a>
                     </Link>
                 </p>
@@ -97,11 +100,11 @@ const Register = () => {
 
 const validationSchema = () =>(
     {
-        name: Yup.string().required('El nombre es necesario'),
-        lastname: Yup.string().required('Tu apellido es necesario '),
-        email: Yup.string().email('Debe ser un email válido').required('Tu email es necesario'),
-        password: Yup.string().required('Tu contraseña es obligatoria'),
-        confirm: Yup.string().oneOf([Yup.ref('password'),null] , 'Las contraseñas deben coincidir')
+        name: Yup.string().required('Your name is required'),
+        lastname: Yup.string().required('Your lastname is required '),
+        email: Yup.string().email('Must be a valid email').required('Your email is required'),
+        password: Yup.string().required('Your password is required'),
+        confirm: Yup.string().oneOf([Yup.ref('password'),null] , 'passwords must be the same')
     }
 )
 

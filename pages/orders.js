@@ -8,6 +8,7 @@ import { map, size, find} from 'lodash'
 import EmptyPage from '../components/EmptyPage'
 import { Grid, Image, Icon, Label, Item } from 'semantic-ui-react'
 import Link from 'next/link'
+import Seo from '../components/Seo'
 
 
 const Orders = () => {
@@ -44,6 +45,9 @@ const Orders = () => {
 
     return (
         <BasicLayout>
+            <Seo 
+                title='My Orders'
+            />
             <div className="Orders">
                 <h1 className="Orders__title">My Orders</h1>
                 <div className="Orders__data">
