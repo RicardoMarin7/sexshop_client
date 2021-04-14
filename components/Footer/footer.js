@@ -1,7 +1,7 @@
 import React from 'react'
 import { Icon } from 'semantic-ui-react'
 import useHomeConfig from '../../hooks/useHomeConfig'
-import { map } from 'lodash'
+import { map, size} from 'lodash'
 import Link from 'next/link'
 
 const Footer = () => {
@@ -11,7 +11,7 @@ const Footer = () => {
         <div className="Footer">
             <div className="container">
                 <div className="Footer__container">
-                    { homeConfig.socials ? (
+                    { size(homeConfig?.socials) > 0 ? (
                         <div className="Footer__socials">
                             { map( homeConfig.socials, social =>(
                                 <div className={social.network} key={social._id}>
